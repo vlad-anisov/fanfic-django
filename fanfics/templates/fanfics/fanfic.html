@@ -1,0 +1,77 @@
+{% extends 'fanfics/base.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% block main %}
+        <div class="pt-5 mt-5">
+    <div class="container bg-primary">
+      <div class="row">
+        <div class="shadow col-md-12"><img class="img-fluid d-block rounded-circle mx-auto shadow" src="{{fanfic.image.url}}" style="	transform:  translateY(-60px) ;" width="100px" height="100px">
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <h2 style="	transform:  translateY(-45px) ;" class="text-light d-flex justify-content-center">{{ fanfic.title }}</h2>
+            </div>
+            <div class="col-md-4 justify-content-center d-flex align-items-start">
+                {% if user.username == fanfic.author.username or user.is_superuser %}
+                <a class="btn btn-secondary align-items-center justify-content-center w-25" href="{% url 'fanfic_edit' pk=fanfic.pk %}" style="	transform:  translateY(-40px) ;">Edit</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="my-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="lead">{{ fanfic.text }}</p>
+          <h5 class="">Genre:&nbsp;<span class="badge badge-primary">{{ fanfic.genre }}</span></h5>
+          <h5 class="">Tags:&nbsp;
+              {% for tag in fanfic.tags.all %}
+              <span class="badge badge-secondary mr-1">{{ tag.name }}</span>
+              {% endfor %}
+          </h5>
+          <h5 class="">Author:&nbsp;<span class="badge badge-danger mr-1">{{ fanfic.author.username }}</span></h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center">Chapters</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'fanfics/base.html' %}
+{% block main %}
+      <div class="py-2">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-center display-5">MAIN</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="container">
+          <div class="row justify-content-center mx-2" style="">
+            <div class="" style="">
+                {% for fanfic in fanfics %}
+        <div class="card my-3 shadow" style="	max-width: 400px;">
+                <div class="card-header d-flex justify-content-center"><b><a href="{% url 'fanfic' pk=fanfic.pk %}" style="">{{ fanfic.title }}</a></b></div>
+                <img class="card-img-top" src="{{fanfic.image.url}}" alt="Card image cap">
+                <div class="card-body" style="">
+                  <p class="">{{ fanfic.text }}</p>
+                  <h5 class="d-flex justify-content-center" contenteditable="true">Genre:&nbsp;<span class="badge badge-primary">{{ fanfic.genre }}</span></h5>
+                  <h6 class="d-flex justify-content-center">Tags:&nbsp;
+                      {% for tag in fanfic.tags.all %}
+                        <span class="badge badge-secondary mr-1">{{tag.name}}</span>
+                      {% endfor %}
+                  </h6>
+                  <div class="row d-flex justify-content-center">
+                    <div class="text-center"><a class="btn btn-outline-primary mx-2" href="{% url 'fanfic' pk=fanfic.pk %}" style="	width: 70px;">Read</a></div>
+                    {% if user.is_superuser %}
+                    <div class="text-center"><a class="btn btn-outline-success mx-2" href="{% url 'fanfic_edit' pk=fanfic.pk %}" style="	width: 70px;">Edit</a></div>
+                    <div class="text-center"><a class="btn btn-outline-danger mx-2" href="#" style="	width: 70px;">Delete</a></div>
+                      {% endif %}
+                  </div>
+                </div>
+              </div>
+    {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+{% endblock %}

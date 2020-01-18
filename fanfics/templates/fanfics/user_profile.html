@@ -1,0 +1,52 @@
+{% extends 'fanfics/base.html' %}
+{% block main %}
+<div class="pt-5 mt-5">
+    <div class="container bg-primary">
+      <div class="row">
+        <div class="col-md-12 shadow"><img class="img-fluid d-block rounded-circle mx-auto shadow" src="https://static.pingendo.com/img-placeholder-3.svg" style="	transform:  translateY(-60px) ;" width="100px">
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <h1 class="text-light d-flex justify-content-center display-4" style="	transform:  translateY(-45px) ;">{{ user_profile.username }}</h1>
+            </div>
+            <div class="col-md-4 justify-content-center d-flex align-items-start">
+                {% if user.username == user_profile.username or user.is_superuser %}
+                <a class="btn btn-secondary align-items-center justify-content-center w-25" href="{% url 'user_edit' name=user_profile.username %}" style="	transform:  translateY(-20px) ;">Edit</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="">
+        <div class="container">
+          <div class="row justify-content-center mx-2" style="">
+            <div class="" style="">
+                {% for fanfic in fanfics %}
+        <div class="card my-3 shadow" style="	max-width: 400px;">
+                <div class="card-header d-flex justify-content-center"><b><a href="{% url 'fanfic' pk=fanfic.pk %}" style="">{{ fanfic.title }}</a></b></div>
+                <img class="card-img-top" src="{{fanfic.image.url}}" alt="Card image cap">
+                <div class="card-body" style="">
+                  <p class="">{{ fanfic.text }}</p>
+                  <h5 class="d-flex justify-content-center" contenteditable="true">Genre:&nbsp;<span class="badge badge-primary">{{ fanfic.genre }}</span></h5>
+                  <h6 class="d-flex justify-content-center">Tags:&nbsp;
+                      {% for tag in fanfic.tags.all %}
+                        <span class="badge badge-secondary mr-1">{{tag.name}}</span>
+                      {% endfor %}
+                  </h6>
+                  <div class="row d-flex justify-content-center">
+                    <div class="text-center"><a class="btn btn-outline-primary mx-2" href="{% url 'fanfic' pk=fanfic.pk %}" style="	width: 70px;">Read</a></div>
+                      {% if user.username == user_profile.username or user.is_superuser %}
+                    <div class="text-center"><a class="btn btn-outline-success mx-2" href="{% url 'fanfic_edit' pk=fanfic.pk %}" style="	width: 70px;">Edit</a></div>
+                    <div class="text-center"><a class="btn btn-outline-danger mx-2" href="#" style="	width: 70px;">Delete</a></div>
+                      {% endif %}
+                  </div>
+                </div>
+              </div>
+    {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}

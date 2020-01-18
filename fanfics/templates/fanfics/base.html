@@ -1,0 +1,51 @@
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<body>
+        <head>
+           <meta charset="utf-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1">
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+            {% if user.is_dark %}
+                <link rel="stylesheet" href="{% static 'fanfics\bootstrap-dark.min.css' %}">
+            {% else %}
+                <link rel="stylesheet" href="{% static 'fanfics\theme.css' %}">
+            {% endif %}
+         </head>
+         
+         <body>
+           <nav class="navbar navbar-expand-md navbar-light">
+             <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar6">
+                 <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbar6"> <a class="navbar-brand text-primary d-none d-md-block" href="http://127.0.0.1:8000">
+                   <b> FANFICTION</b>
+                 </a>
+                 <ul class="navbar-nav mx-auto flex-grow-1">
+                   {% if user.is_superuser %}
+                   <li class="nav-item" style=""> <a class="nav-link" href="/admin">Admin Panel<br></a> </li>
+                   {% endif %}
+                 </ul>
+                 <form class="form-inline my-lg-0 my-2 mx-2"> <input class="form-control mr-sm-2" type="text" placeholder="Search"> <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button> </form><a class="btn mr-2 ml-5 shadow btn-outline-primary rounded-circle text-primary d-flex justify-content-center align-items-center" href="{% url 'fanfic_new' %}" style="	height: 44px;	width: 44px;	border-left-width: 2px;	border-right-width: 2px;	border-bottom-width: 2px;	border-top-width: 2px;"><i class="fa fa-fw fa-1x py-1 fa-plus-circle fa-plus fa-2x" style=""></i></a>
+                 <ul class="navbar-nav">
+                   {% if user.is_authenticated %}
+                   <li class="nav-item"> <a class="nav-link" href="{% url 'user_profile' name=user.username %}">{{ user.username }}</a> </li>
+                   <li class="nav-item"> <a class="nav-link" href="{% url 'account_logout' %}">Log out</a> </li>
+                   {% else %}
+                   <li class="nav-item"> <a class="nav-link" href="{% url 'account_login' %}">Log in</a> </li>
+                   <li class="nav-item"> <a class="nav-link text-primary" href="{% url 'account_signup' %}">Register</a> </li>
+                   {% endif %}
+                 </ul>
+               </div>
+             </div>
+           </nav>
+        </body>
+        {% block main %}
+        {% endblock %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+     </body>
+</html>
